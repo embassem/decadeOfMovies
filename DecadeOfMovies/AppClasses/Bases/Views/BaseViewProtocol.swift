@@ -15,7 +15,7 @@ protocol BaseViewProtocol: class {
 
     func hideLoading()
 
-    func showError(message: String)
+    func showError(with message: String)
 
     func showToast(message: String)
 }
@@ -30,7 +30,7 @@ extension BaseViewProtocol where Self: BaseViewController {
 
     }
 
-    func showError(message: String) {
+    func showError(with message: String) {
         self.view.makeToast(message, duration: 3.0, position: .top)
         //TODO: add SwiftMessages and replace with toast
         //        let view = MessageView.viewFromNib(layout: .cardView)

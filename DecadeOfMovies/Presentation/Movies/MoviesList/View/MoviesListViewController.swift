@@ -8,12 +8,9 @@
 
 import UIKit
 
-class MoviesListViewController: UIViewController {
+class MoviesListViewController: BaseViewController {
 
-    let movies: [Movie] = {
-        let container = Bundle.main.decode(Movies.self, from: "movies.json")
-        return container.movies ?? []
-    }()
+     private var viewModel: MoviesListViewModel! = DefaultMoviesListViewModel(closures: nil)
     
     @IBOutlet private weak var moviesTableView: UITableView!
     override func viewDidLoad() {
@@ -27,15 +24,24 @@ class MoviesListViewController: UIViewController {
     
     func configureUI() {
      
+        title = viewModel.screenTitle
         moviesTableView.delegate = self
         moviesTableView.dataSource = self
-        moviesTableView.estimatedRowHeight = UITableView.automaticDimension
+        moviesTableView.estimatedRowHeight = 100
+        moviesTableView.rowHeight = UITableView.automaticDimension
         moviesTableView.tableFooterView = UIView(frame: .zero)
         registerCells()
+        bind(to: viewModel)
+        viewModel.viewDidLoad()
     }
     
     func registerCells() {
         moviesTableView.register(nibWithCellClass: MovieCell.self)
+    }
+    
+    private func bind(to viewModel: MoviesListViewModel) {
+        viewModel.items.observe(on: self) { [weak self] _ in self?.moviesTableView?.reloadData() }
+        viewModel.error.observe(on: self) { [weak self] in self?.showError(with: $0) }
     }
 }
 
@@ -47,12 +53,12 @@ extension MoviesListViewController: UITableViewDataSource {
     }
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return viewModel.items.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: MovieCell.self, for: indexPath)
-        let movie = movies[indexPath.row]
+        let movie = viewModel.items.value[indexPath.row]
         cell.fill(with: movie)
         return cell
     }
@@ -66,5 +72,6 @@ extension MoviesListViewController: UITableViewDataSource {
 extension MoviesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(#function, indexPath)
+        viewModel.didSelectItem(at: indexPath.row)
     }
 }

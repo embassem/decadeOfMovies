@@ -35,7 +35,7 @@ class MovieCell: UITableViewCell {
         
     }
     
-    func fill(with model: Movie) {
+    func fill(with model: MoviesListItemViewModel) {
         self.movieTitleLabel.text = model.title
         self.movieDetailsLabel.text = (model.year != nil) ? "\(String(describing: model.year))" : ""
     }
