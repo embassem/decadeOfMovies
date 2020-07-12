@@ -1,6 +1,6 @@
 
 require 'xcodeproj'
-project_path = 'Offers.xcodeproj'
+project_path = 'DecadeOfMovies.xcodeproj'
 project = Xcodeproj::Project.open(project_path)
 app = project.targets[0]
 puts app.name

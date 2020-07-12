@@ -11,21 +11,6 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
-
-    internal enum OfferDetails {
-        /// REDEMPTIONS CAP
-        internal static var redemptionsCaps: String = {
-          return L10n.tr("Localizable", "offer_details.redemptions_caps")}()
-        /// 
-        internal static var title: String = {
-          return L10n.tr("Localizable", "offer_details.title")}()
-    }
-
-    internal enum OffersList {
-        /// Title
-        internal static var title: String = {
-          return L10n.tr("Localizable", "offers_list.title")}()
-    }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name
