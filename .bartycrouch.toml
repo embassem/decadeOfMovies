@@ -1,0 +1,39 @@
+[update]
+tasks = ["interfaces", "transform", "normalize"]
+
+[update.interfaces]
+path = "./The-Valley/"
+defaultToBase = false
+ignoreEmptyStrings = false
+unstripped = false
+
+[update.code]
+codePath = "./The-Valley/"
+localizablePath = "."
+defaultToKeys = false
+additive = true
+unstripped = false
+
+[update.transform]
+codePath = "./The-Valley/"
+localizablePath = "."
+transformer = "swiftgenStructured"
+supportedLanguageEnumPath = "."
+typeName = "BartyCrouch"
+translateMethodName = "translate"
+
+[update.translate]
+path = "."
+secret = "<#Subscription Key#>"
+sourceLocale = "en"
+
+[update.normalize]
+path = "./The-Valley/"
+sourceLocale = "en"
+harmonizeWithSource = true
+sortByKeys = true
+
+[lint]
+path = "./The-Valley/"
+duplicateKeys = true
+emptyValues = true

@@ -1,0 +1,27 @@
+input_dir: DecadeOfMovies
+output_dir: DecadeOfMovies
+strings:
+  inputs:
+    - Resources/Localization/en.lproj/Localizable.strings
+  outputs:
+    templatePath: ./APPStringsTemplete.stencil
+    output: Resources/Localization/Localized.swift
+  fallback: Base
+custom_rules:
+  swiftgen_strings:
+    name: "SwiftGen Strings"
+    regex: 'NSLocalizedString'
+    message: "Use L10n.key instead"
+    severity: error
+fonts:
+  inputs: Resources/Fonts
+  outputs:
+    templateName: swift4
+    output: Resources/Fonts/Fonts.swift
+xcassets:
+  inputs:
+    - Resources/Assets/Images.xcassets
+    - Resources/Assets/Colors.xcassets
+  outputs:
+    templateName: swift4
+    output: Resources/Assets/Assets.swift

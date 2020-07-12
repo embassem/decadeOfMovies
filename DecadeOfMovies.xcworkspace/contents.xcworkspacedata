@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "container:"
+      name = "root">
+      <FileRef
+         location = "group:README.md">
+      </FileRef>
+      <FileRef
+         location = "group:setup.sh">
+      </FileRef>
+      <FileRef
+         location = "group:swiftgen.yml">
+      </FileRef>
+      <FileRef
+         location = "group:AppStringsTemplete.stencil">
+      </FileRef>
+      <FileRef
+         location = "group:configuration.rb">
+      </FileRef>
+      <FileRef
+         location = "group:Gemfile">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "container:DecadeOfMovies.xcodeproj">
+   </FileRef>
+</Workspace>

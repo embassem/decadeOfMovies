@@ -1,4 +1,4 @@
-#macOS
+# macOS
 .DS_Store
 
 # Xcode
@@ -57,7 +57,9 @@ playground.xcworkspace
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
-# Pods/
+
+Pods/
+
 #
 # Add this line if you want to avoid checking in source code from the Xcode workspace
 # *.xcworkspace
@@ -65,9 +67,18 @@ playground.xcworkspace
 # Carthage
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
 
-Carthage/Build/
+Carthage/Checkouts
+# add Build to repo to down the build time
+# Carthage/Build/
+
+Carthage/*
+!Carthage/Build/
+Carthage/Build/*
+!Carthage/Build/iOS/
+Carthage/Build/iOS/*
+!Carthage/Build/iOS/*.framework
+
 
 # Accio dependency management
 Dependencies/
