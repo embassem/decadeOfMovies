@@ -146,12 +146,14 @@ import UIKit
  */
 public enum AppFontStyle: String {
 
-    case body1normal = "AppFontStyleB1Normal"         //Font Family: SF Pro Text; Font Style: Normal; Font Size: 16 pt
+    case body1normal = "AppFontStyleB1Normal"
+     case title1Bold = "AppFontStyleT1Bold"//Font Family: SF Pro Text; Font Style: Normal; Font Size: 16 pt
+     case title2Bold = "AppFontStyleT2Bold"
 
     /// this properity represent the most nearest size in the System text Style  to the App Style
     var systemStyle: UIFont.TextStyle {
         switch self {
-        case .body1normal:
+            case .body1normal, .title1Bold, .title2Bold:
             return UIFont.TextStyle.body
         }
     }

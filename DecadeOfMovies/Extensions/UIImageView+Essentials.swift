@@ -17,6 +17,14 @@ extension UIImageView {
         self.image = flipedImage
     }
 
+    func startShimmering() {
+        self.startShimmeringAnimation()
+    }
+    
+    func stopShimmering() {
+        layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+    }
+    
     func setImageWith(urlString: String?, placeholder: UIImage? = nil ) {
         self.image = placeholder
         guard let imageurl = urlString ,
@@ -55,8 +63,9 @@ fileprivate extension UIView {
                                   repeatCount: Float = MAXFLOAT) {
 
         // Create color  ->2
-        let lightColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1).cgColor
-        let blackColor = UIColor.black.cgColor
+        let lightColor = UIColor.clear.cgColor
+        //UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1).cgColor
+        let blackColor = UIColor.grayscale800.cgColor
 
         // Create a CAGradientLayer  ->3
         let gradientLayer = CAGradientLayer()
@@ -86,13 +95,13 @@ fileprivate extension UIView {
         }
 
         gradientLayer.locations =  [0.35, 0.50, 0.65] //[0.4, 0.6]
-        self.layer.mask = gradientLayer
+        self.layer.addSublayer(gradientLayer) //= gradientLayer
 
         // Add animation over gradient Layer  ->4
         CATransaction.begin()
         let animation = CABasicAnimation(keyPath: "locations")
         animation.fromValue = [0.0, 0.1, 0.2]
-        animation.toValue = [0.8, 0.9, 1.0]
+        animation.toValue = [0.7, 0.9, 1.1]
         animation.duration = CFTimeInterval(animationSpeed)
         animation.repeatCount = repeatCount
         CATransaction.setCompletionBlock { [weak self] in

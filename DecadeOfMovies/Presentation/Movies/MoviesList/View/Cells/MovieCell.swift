@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import Cosmos
 
 class MovieCell: UITableViewCell {
 
     @IBOutlet private weak var movieImageView: UIImageView!
     @IBOutlet private weak var movieTitleLabel: UILabel!
-    @IBOutlet private weak var movieDetailsLabel: UILabel!
-
+    @IBOutlet private weak var yearLabel: UILabel!
+    @IBOutlet private weak var ratingView: CosmosView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         reset()
@@ -32,11 +34,13 @@ class MovieCell: UITableViewCell {
     }
 
     func reset() {
-
+        movieImageView.stopShimmering()
     }
 
     func fill(with model: MoviesListItemViewModel) {
         self.movieTitleLabel.text = model.title
-        self.movieDetailsLabel.text = (model.year != nil) ? "\(String(describing: model.year))" : ""
+        self.yearLabel.text = (model.year != nil) ? "\(String(describing: model.year))" : ""
+        self.ratingView.rating = model.rating
+        self.movieImageView.startShimmering()
     }
 }

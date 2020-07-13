@@ -14,6 +14,7 @@
 		18500E2E24BCDFAB006C1F35 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18500E2D24BCDFAB006C1F35 /* AppCoordinator.swift */; };
 		18500E3124BCE06D006C1F35 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18500E3024BCE06D006C1F35 /* Navigator.swift */; };
 		18500E3324BCE0D2006C1F35 /* MoviesNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18500E3224BCE0D2006C1F35 /* MoviesNavigator.swift */; };
+		18500E3624BCEAD9006C1F35 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 18500E3524BCEAD9006C1F35 /* Cosmos */; };
 		18777EE2248C0F4D00A4CA60 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 18777EE1248C0F4D00A4CA60 /* Moya */; };
 		18777F3A248C15D500A4CA60 /* StaticHeaderPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18777F2D248C15D500A4CA60 /* StaticHeaderPlugin.swift */; };
 		18777F3B248C15D500A4CA60 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18777F2E248C15D500A4CA60 /* NetworkManager.swift */; };
@@ -171,6 +172,7 @@
 			files = (
 				18777F45248C30B500A4CA60 /* Toast in Frameworks */,
 				18777EE2248C0F4D00A4CA60 /* Moya in Frameworks */,
+				18500E3624BCEAD9006C1F35 /* Cosmos in Frameworks */,
 				1893A46D248B151400EB063A /* KingfisherDynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -643,6 +645,7 @@
 				1893A46C248B151400EB063A /* KingfisherDynamic */,
 				18777EE1248C0F4D00A4CA60 /* Moya */,
 				18777F44248C30B500A4CA60 /* Toast */,
+				18500E3524BCEAD9006C1F35 /* Cosmos */,
 			);
 			productName = Offers;
 			productReference = 18B0B1F82489729300DF800B /* DecadeOfMovies.app */;
@@ -677,6 +680,7 @@
 				1893A46B248B151400EB063A /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				18777EE0248C0F4D00A4CA60 /* XCRemoteSwiftPackageReference "Moya" */,
 				18777F43248C30B500A4CA60 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				18500E3424BCEAD9006C1F35 /* XCRemoteSwiftPackageReference "Cosmos" */,
 			);
 			productRefGroup = 18B0B1F92489729300DF800B /* Products */;
 			projectDirPath = "";
@@ -1010,6 +1014,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		18500E3424BCEAD9006C1F35 /* XCRemoteSwiftPackageReference "Cosmos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/Cosmos.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 22.1.0;
+			};
+		};
 		18777EE0248C0F4D00A4CA60 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya";
@@ -1037,6 +1049,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		18500E3524BCEAD9006C1F35 /* Cosmos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18500E3424BCEAD9006C1F35 /* XCRemoteSwiftPackageReference "Cosmos" */;
+			productName = Cosmos;
+		};
 		18777EE1248C0F4D00A4CA60 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 18777EE0248C0F4D00A4CA60 /* XCRemoteSwiftPackageReference "Moya" */;

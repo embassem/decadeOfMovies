@@ -34,8 +34,9 @@ class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func start() {
-        
-        navigationController?.viewControllers = [movies.viewController(for: .list)]
+        let vc = movies.viewController(for: .list)
+
+        navigationController?.setViewControllers([vc], animated: true)
         self.window.rootViewController = navigationController
         self.window.makeKeyAndVisible()
     }
