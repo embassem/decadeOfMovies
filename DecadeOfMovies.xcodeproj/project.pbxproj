@@ -15,6 +15,8 @@
 		18500E3124BCE06D006C1F35 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18500E3024BCE06D006C1F35 /* Navigator.swift */; };
 		18500E3324BCE0D2006C1F35 /* MoviesNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18500E3224BCE0D2006C1F35 /* MoviesNavigator.swift */; };
 		18500E3624BCEAD9006C1F35 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 18500E3524BCEAD9006C1F35 /* Cosmos */; };
+		18500E3824BD048F006C1F35 /* SearchMoviesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18500E3724BD048F006C1F35 /* SearchMoviesUseCase.swift */; };
+		18500E3A24BD0E10006C1F35 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18500E3924BD0E10006C1F35 /* Dictionary.swift */; };
 		18777EE2248C0F4D00A4CA60 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 18777EE1248C0F4D00A4CA60 /* Moya */; };
 		18777F3A248C15D500A4CA60 /* StaticHeaderPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18777F2D248C15D500A4CA60 /* StaticHeaderPlugin.swift */; };
 		18777F3B248C15D500A4CA60 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18777F2E248C15D500A4CA60 /* NetworkManager.swift */; };
@@ -102,6 +104,8 @@
 		18500E2D24BCDFAB006C1F35 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		18500E3024BCE06D006C1F35 /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		18500E3224BCE0D2006C1F35 /* MoviesNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesNavigator.swift; sourceTree = "<group>"; };
+		18500E3724BD048F006C1F35 /* SearchMoviesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMoviesUseCase.swift; sourceTree = "<group>"; };
+		18500E3924BD0E10006C1F35 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		18777F2D248C15D500A4CA60 /* StaticHeaderPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticHeaderPlugin.swift; sourceTree = "<group>"; };
 		18777F2E248C15D500A4CA60 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		18777F2F248C15D500A4CA60 /* NetworkDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDefaults.swift; sourceTree = "<group>"; };
@@ -403,6 +407,7 @@
 				18B0B24D24897E6300DF800B /* Result.swift */,
 				18B0B24E24897E6300DF800B /* UICollecttionViewCell+Reusable.swift */,
 				18B0B24F24897E6300DF800B /* UIViewExtensions.swift */,
+				18500E3924BD0E10006C1F35 /* Dictionary.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -564,6 +569,7 @@
 			isa = PBXGroup;
 			children = (
 				18CC088D24BB6A7900A13324 /* MoviesListUseCase.swift */,
+				18500E3724BD048F006C1F35 /* SearchMoviesUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -782,6 +788,7 @@
 				1814D40B248C5058004420DE /* Fonts.swift in Sources */,
 				18CC088E24BB6A7900A13324 /* MoviesListUseCase.swift in Sources */,
 				18500E3324BCE0D2006C1F35 /* MoviesNavigator.swift in Sources */,
+				18500E3A24BD0E10006C1F35 /* Dictionary.swift in Sources */,
 				18777F3D248C15D500A4CA60 /* NetworkError.swift in Sources */,
 				18CC08A024BB709300A13324 /* MoviesResponseStorage.swift in Sources */,
 				18B0B2DB2489DCB000DF800B /* UIViewController.swift in Sources */,
@@ -795,6 +802,7 @@
 				18B0B26C248980BA00DF800B /* UIImage+Essentials.swift in Sources */,
 				18B0B2DD2489E03300DF800B /* NavigationBar+Appearance.swift in Sources */,
 				18B0B24A24897E3D00DF800B /* AppNavigationController.swift in Sources */,
+				18500E3824BD048F006C1F35 /* SearchMoviesUseCase.swift in Sources */,
 				18777F3B248C15D500A4CA60 /* NetworkManager.swift in Sources */,
 				18B0B26524897EBC00DF800B /* Localized.swift in Sources */,
 				18777F4F248C32D800A4CA60 /* NoInternetView.swift in Sources */,

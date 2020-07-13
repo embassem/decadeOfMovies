@@ -23,6 +23,7 @@ internal enum Asset {
     internal static let grayscale200 = ColorAsset(name: "Grayscale200")
     internal static let grayscale600 = ColorAsset(name: "Grayscale600")
     internal static let grayscale800 = ColorAsset(name: "Grayscale800")
+    internal static let grayscale900 = ColorAsset(name: "Grayscale900")
   }
   internal enum Images {
     internal static let icBackArrow = ImageAsset(name: "ic_back_arrow")

@@ -53,7 +53,7 @@ extension MovieJSON {
     func toMovie() -> Movie {
         return Movie(
             title: self.title,
-            year: self.year,
+            year: self.year ?? 0,
             rating: self.rating,
             genres: self.genres,
             cast: self.cast)

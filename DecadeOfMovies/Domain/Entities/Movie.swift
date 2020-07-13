@@ -7,7 +7,7 @@ import Foundation
 struct Movie: Equatable {
 
     let title: String?
-    let year: Int?
+    let year: Int
     let rating: Int?
     let genres: [String]?
     let cast: [String]?

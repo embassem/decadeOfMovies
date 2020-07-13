@@ -24,6 +24,9 @@ class AppManager: NSObject {
     private override init() {
         super.init()
         configerNetworking()
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes =
+            [NSAttributedString.Key.foregroundColor: UIColor.grayscale200]
+
     }
     static func launchApp(_ application: UIApplication) {
 

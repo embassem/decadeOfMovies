@@ -24,10 +24,12 @@ class MoviesNavigator: Navigator {
         switch destination {
             case .list:
                 let localStorage = JSONMoviesResponseStorage()
-                let repository =  DefaultMoviesRepository(local:localStorage)
-                let useCase =  DefaultMoviesListUseCase(moviesRepository: repository)
-                let viewModel = DefaultMoviesListViewModel(moviesListUseCase: useCase)
-                
+                let repository = DefaultMoviesRepository(local: localStorage)
+                let listUseCase = DefaultMoviesListUseCase(moviesRepository: repository)
+                let searchUsercase = DefaultSearchMoviesUseCase(moviesRepository: repository)
+                let viewModel = DefaultMoviesListViewModel(
+                    moviesListUseCase: listUseCase,
+                    searchMoviesUseCase: searchUsercase)
                 let view = MoviesListViewController(viewModel: viewModel)
                 view.coordinator = coordinator
                 return view

@@ -24,6 +24,7 @@ protocol MoviesListViewModelInput {
 
 protocol MoviesListViewModelOutput {
     var items: Observable<[MoviesListItemViewModel]> { get }
+    var filteredItems: Observable<[[MoviesListItemViewModel]]> { get }
     var query: Observable<String> { get }
     var error: Observable<String> { get }
     var isEmpty: Bool { get }
@@ -37,8 +38,13 @@ protocol MoviesListViewModel: MoviesListViewModelInput, MoviesListViewModelOutpu
 
 final class DefaultMoviesListViewModel: MoviesListViewModel {
 
+    enum State {
+        case listing
+        case searching(text: String)
+    }
     private let closures: MoviesListViewModelClosures?
     private let moviesListUseCase: MoviesListUseCase
+    private let searchMoviesUseCase: SearchMoviesUseCase
     var currentPage: Int = 0
     var totalPageCount: Int = 1
     var hasMorePages: Bool { currentPage < totalPageCount }
@@ -49,11 +55,23 @@ final class DefaultMoviesListViewModel: MoviesListViewModel {
             items.value = movies.map(MoviesListItemViewModel.init)
         }
     }
+
+    private var filteredMovies: [Movie] = [] {
+        didSet {
+            let newMovies = filteredMovies.map(MoviesListItemViewModel.init)
+            let groupingData = Dictionary(grouping: newMovies, by: { $0.year })
+            filteredItems.value = Array(groupingData.values.map { $0 })
+        }
+    }
+
+    var state: State = .listing
     //    private var moviesLoadTask: Cancellable? { willSet { moviesLoadTask?.cancel() } }
 
     // MARK: - OUTPUT
 
     let items: Observable<[MoviesListItemViewModel]> = Observable([])
+    let filteredItems: Observable<[[MoviesListItemViewModel]]> =
+        Observable([[MoviesListItemViewModel]]())
     let query: Observable<String> = Observable("")
     let error: Observable<String> = Observable("")
     var isEmpty: Bool { return items.value.isEmpty }
@@ -64,9 +82,12 @@ final class DefaultMoviesListViewModel: MoviesListViewModel {
 
     // MARK: - Init
 
-    init(moviesListUseCase: MoviesListUseCase, closures: MoviesListViewModelClosures? = nil) {
+    init(moviesListUseCase: MoviesListUseCase,
+         searchMoviesUseCase: SearchMoviesUseCase,
+         closures: MoviesListViewModelClosures? = nil) {
         self.closures = closures
         self.moviesListUseCase = moviesListUseCase
+        self.searchMoviesUseCase = searchMoviesUseCase
     }
 
     // MARK: - Private
@@ -75,6 +96,9 @@ final class DefaultMoviesListViewModel: MoviesListViewModel {
         self.movies.append(contentsOf: movies ?? [])
     }
 
+    private func appendFilteredPage(_ movies: [Movie]?) {
+        self.filteredMovies = (movies ?? [])
+    }
     private func resetPages() {
         currentPage = 0
         totalPageCount = 1
@@ -83,16 +107,25 @@ final class DefaultMoviesListViewModel: MoviesListViewModel {
     }
 
     private func load(movieQuery: String) {
-        //TODO: Implement Search in Place
+        searchMoviesUseCase.execute(
+            query: movieQuery,
+            completion: { result in
+                switch result {
+                case .success(let page):
+                    self.appendFilteredPage(page)
+                case .failure(let error):
+                    self.handle(error: error)
+                }
+        })
     }
 
     private func load() {
         moviesListUseCase.execute { (result) in
             switch result {
-                case .success(let page):
-                    self.appendPage(page)
-                case .failure(let error):
-                    self.handle(error: error)
+            case .success(let page):
+                self.appendPage(page)
+            case .failure(let error):
+                self.handle(error: error)
             }
         }
     }
@@ -116,10 +149,12 @@ extension DefaultMoviesListViewModel {
 
     func didSearch(query: String) {
         guard !query.isEmpty else { return }
+        state = .searching(text: query)
         update(movieQuery: query)
     }
 
     func didCancelSearch() {
+        state = .listing
         items.value.removeAll()
         load()
     }

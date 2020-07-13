@@ -15,7 +15,7 @@ class MovieCell: UITableViewCell {
     @IBOutlet private weak var movieTitleLabel: UILabel!
     @IBOutlet private weak var yearLabel: UILabel!
     @IBOutlet private weak var ratingView: CosmosView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         reset()
