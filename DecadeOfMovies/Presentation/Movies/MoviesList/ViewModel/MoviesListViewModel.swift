@@ -36,23 +36,23 @@ protocol MoviesListViewModelOutput {
 protocol MoviesListViewModel: MoviesListViewModelInput, MoviesListViewModelOutput {}
 
 final class DefaultMoviesListViewModel: MoviesListViewModel {
-    
+
     private let closures: MoviesListViewModelClosures?
-    
+    private let moviesListUseCase: MoviesListUseCase
     var currentPage: Int = 0
     var totalPageCount: Int = 1
     var hasMorePages: Bool { currentPage < totalPageCount }
     var nextPage: Int { hasMorePages ? currentPage + 1 : currentPage }
-    
+
     private var movies: [Movie] = [] {
         didSet {
             items.value = movies.map(MoviesListItemViewModel.init)
         }
     }
-//    private var moviesLoadTask: Cancellable? { willSet { moviesLoadTask?.cancel() } }
-    
+    //    private var moviesLoadTask: Cancellable? { willSet { moviesLoadTask?.cancel() } }
+
     // MARK: - OUTPUT
-    
+
     let items: Observable<[MoviesListItemViewModel]> = Observable([])
     let query: Observable<String> = Observable("")
     let error: Observable<String> = Observable("")
@@ -61,38 +61,45 @@ final class DefaultMoviesListViewModel: MoviesListViewModel {
     let emptyDataTitle = NSLocalizedString("Search results", comment: "")
     let errorTitle = NSLocalizedString("Error", comment: "")
     let searchBarPlaceholder = NSLocalizedString("Search Movies", comment: "")
-    
+
     // MARK: - Init
-    
-    init(closures: MoviesListViewModelClosures? = nil) {
+
+    init(moviesListUseCase: MoviesListUseCase, closures: MoviesListViewModelClosures? = nil) {
         self.closures = closures
+        self.moviesListUseCase = moviesListUseCase
     }
-    
+
     // MARK: - Private
-    
-    private func appendPage(_ moviesPage: Movies) {
-        movies.append(contentsOf: moviesPage.movies ?? [])
+
+    private func appendPage(_ movies: [Movie]?) {
+        self.movies.append(contentsOf: movies ?? [])
     }
 
     private func resetPages() {
         currentPage = 0
         totalPageCount = 1
-//        pages.removeAll()
+        //        pages.removeAll()
         items.value.removeAll()
     }
-    
+
     private func load(movieQuery: String) {
-      //TODO: Implement Search in Place
+        //TODO: Implement Search in Place
     }
-    
+
     private func load() {
-        let container = Bundle.main.decode(Movies.self, from: "movies.json")
-        movies = container.movies ?? []
+        moviesListUseCase.execute { (result) in
+            switch result {
+                case .success(let page):
+                    self.appendPage(page)
+                case .failure(let error):
+                    self.handle(error: error)
+            }
+        }
     }
     private func handle(error: Error) {
         self.error.value = error.localizedDescription
     }
-    
+
     private func update(movieQuery: String) {
         resetPages()
         load(movieQuery: movieQuery)
@@ -102,21 +109,21 @@ final class DefaultMoviesListViewModel: MoviesListViewModel {
 // MARK: - INPUT. View event methods
 
 extension DefaultMoviesListViewModel {
-    
+
     func viewDidLoad() {
         load()
     }
-        
+
     func didSearch(query: String) {
         guard !query.isEmpty else { return }
         update(movieQuery: query)
     }
-    
+
     func didCancelSearch() {
         items.value.removeAll()
         load()
     }
-    
+
     func didSelectItem(at index: Int) {
         closures?.showMovieDetails(movies[index])
     }

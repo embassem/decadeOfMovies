@@ -9,14 +9,14 @@
 import Foundation
 
 struct MoviesListItemViewModel: Equatable {
-    
+
     let title: String
     let year: Int
     let rating: Double
 }
 
 extension MoviesListItemViewModel {
-    
+
     init(movie: Movie) {
         self.title = movie.title ?? ""
         self.year = movie.year ?? 0

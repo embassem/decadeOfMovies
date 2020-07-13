@@ -15,6 +15,12 @@ class AppManager: NSObject {
 
     private(set) var window: UIWindow?
 
+    private var appCoordinator: AppCoordinator! {
+        didSet {
+            appCoordinator.start()
+        }
+    }
+    
     private override init() {
         super.init()
         configerNetworking()
@@ -37,19 +43,15 @@ class AppManager: NSObject {
     static func initWindow() {
 
         let window = UIWindow(frame: UIScreen.main.bounds)
-        let vc = Container.getSplashScene()
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
         self.shared.window = window
+        self.shared.appCoordinator = AppCoordinator(window: window, navigationController: AppNavigationController())
     }
 
     @available(iOS 13.0, *)
     static func initWindow(windowScene: UIWindowScene) {
         let window = UIWindow(windowScene: windowScene)
-        let vc = Container.getSplashScene()
-        window.rootViewController = vc
-        window.makeKeyAndVisible()
         self.shared.window = window
+        self.shared.appCoordinator = AppCoordinator(window: window, navigationController: AppNavigationController())
     }
 
     class func setWindowRoot(_ viewController: UIViewController) {

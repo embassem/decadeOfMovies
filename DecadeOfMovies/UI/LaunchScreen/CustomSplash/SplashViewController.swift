@@ -36,8 +36,6 @@ class SplashViewController: UIViewController {
     fileprivate func animationCompleted() {
         //TODO: Navigate to root View
 
-        let vc = Container.Root.getRootScene()
-        AppManager.setWindowTransition(vc)
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

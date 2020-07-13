@@ -13,7 +13,7 @@ class MovieCell: UITableViewCell {
     @IBOutlet private weak var movieImageView: UIImageView!
     @IBOutlet private weak var movieTitleLabel: UILabel!
     @IBOutlet private weak var movieDetailsLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         reset()
@@ -25,16 +25,16 @@ class MovieCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     override func prepareForReuse() {
         reset()
         super.prepareForReuse()
     }
-    
+
     func reset() {
-        
+
     }
-    
+
     func fill(with model: MoviesListItemViewModel) {
         self.movieTitleLabel.text = model.title
         self.movieDetailsLabel.text = (model.year != nil) ? "\(String(describing: model.year))" : ""
