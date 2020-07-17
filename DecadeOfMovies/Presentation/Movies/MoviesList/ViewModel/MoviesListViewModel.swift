@@ -159,6 +159,12 @@ extension DefaultMoviesListViewModel {
     }
 
     func didSelectItem(at index: Int) {
-        closures?.showMovieDetails(movies[index])
+        switch state {
+            case .listing:
+             closures?.showMovieDetails(movies[index])
+            case .searching(text: _):
+                closures?.showMovieDetails(self.filteredMovies[index])
+        }
+       
     }
 }
