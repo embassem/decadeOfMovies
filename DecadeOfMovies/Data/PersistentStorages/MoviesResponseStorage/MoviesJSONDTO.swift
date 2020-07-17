@@ -54,7 +54,7 @@ extension MovieJSON {
         return Movie(
             title: self.title,
             year: self.year ?? 0,
-            rating: self.rating,
+            rating: self.rating ?? 0,
             genres: self.genres,
             cast: self.cast)
     }

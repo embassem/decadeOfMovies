@@ -8,7 +8,7 @@ struct Movie: Equatable {
 
     let title: String?
     let year: Int
-    let rating: Int?
+    let rating: Int
     let genres: [String]?
     let cast: [String]?
 }

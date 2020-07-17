@@ -23,7 +23,7 @@ final class DefaultSearchMoviesUseCase: SearchMoviesUseCase {
        
     }
     
-    private func prepareData(){
+    private func prepareData() {
         return moviesRepository.fetchMoviesList { (result) in
             guard let list = result.value else { return }
             self.list = list
@@ -31,8 +31,14 @@ final class DefaultSearchMoviesUseCase: SearchMoviesUseCase {
     }
     func execute(query: String, completion: @escaping (Result<[Movie], Error>) -> Void) {
         
-        let filteredList = list.filter({($0.title?.contains(query) ?? false)})
+        let filteredList = list.filter({ ($0.title?.contains(query) ?? false) })
         
-        completion(.success(filteredList))
+        let yearMovies = Array(Dictionary(grouping: filteredList, by: { $0.year }))
+        var limitMovies: [Movie] = []
+        for (_, movies) in yearMovies {
+            let topMovies = movies.sorted(by: { $0.rating > $1.rating })
+            limitMovies.append(contentsOf: topMovies.prefix(5))
+        }
+        completion(.success(limitMovies))
     }
 }
