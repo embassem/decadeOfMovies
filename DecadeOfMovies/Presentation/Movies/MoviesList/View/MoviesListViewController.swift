@@ -74,29 +74,6 @@ class MoviesListViewController: BaseViewController {
     }
 }
 
-// MARK: - Table DataSource
-//extension MoviesListViewController: UITableViewDataSource {
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return viewModel.items.value.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withClass: MovieCell.self, for: indexPath)
-//        let movie = viewModel.items.value[indexPath.row]
-//        cell.fill(with: movie)
-//        return cell
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
-//}
-
 // MARK: - Table Delegate
 extension MoviesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -122,7 +99,6 @@ extension MoviesListViewController: UISearchResultsUpdating {
             return
         }
         viewModel.didSearch(query: searchText)
-        //        filterContentForSearchText(searchBar.text!, category: category)
     }
 }
 
@@ -135,74 +111,4 @@ extension MoviesListViewController: UISearchBarDelegate {
 
 protocol MoviesDataSource {
     func reload()
-}
-class ListMoviesDataSource: NSObject, UITableViewDataSource, MoviesDataSource {
-
-    private var datasourceTableView: UITableView!
-    private var viewModel: MoviesListViewModel!
-    private override init() {}
-
-    init(viewModel: MoviesListViewModel, tableView: UITableView) {
-        super.init()
-        self.viewModel = viewModel
-        self.datasourceTableView = tableView
-    }
-
-    func reload() {
-        datasourceTableView.dataSource = self
-        datasourceTableView.reloadData()
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.items.value.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: MovieCell.self, for: indexPath)
-        let movie = viewModel.items.value[indexPath.row]
-        cell.fill(with: movie)
-        return cell
-    }
-}
-
-class SearchMoviesDataSource: NSObject, UITableViewDataSource, MoviesDataSource {
-
-    private var datasourceTableView: UITableView!
-    private var viewModel: MoviesListViewModel!
-    private override init() {}
-
-    init(viewModel: MoviesListViewModel, tableView: UITableView) {
-        super.init()
-        self.viewModel = viewModel
-        self.datasourceTableView = tableView
-    }
-
-    func reload() {
-        datasourceTableView.dataSource = self
-        datasourceTableView.reloadData()
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.filteredItems.value.count
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.filteredItems.value[section].count ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: MovieCell.self, for: indexPath)
-         let movie = viewModel.filteredItems.value[indexPath.section][indexPath.row]
-        cell.fill(with: movie)
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let key = viewModel.filteredItems.value[section].first?.year ?? 0
-        return String(key)
-    }
-    
-    
 }
