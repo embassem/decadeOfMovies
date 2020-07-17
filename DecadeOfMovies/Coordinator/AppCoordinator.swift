@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 protocol Navigators {
     var movies: MoviesNavigator { get set }
@@ -34,11 +35,18 @@ class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func start() {
-        let vc = movies.viewController(for: .list)
+        let closures = MoviesListViewModelClosures(showMovieDetails: showMovieDetails)
+        
+        let vc = movies.makeMoviesListViewController(closures: closures)
 
         navigationController?.setViewControllers([vc], animated: true)
         self.window.rootViewController = navigationController
         self.window.makeKeyAndVisible()
+    }
+    
+    private func showMovieDetails(movie: Movie) {
+        let details = movies.makeMoviesDetailsViewController(movie: movie)
+        movies.navigate(to: details, with: .push)
     }
     
 }

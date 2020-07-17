@@ -19,21 +19,28 @@ class MoviesNavigator: Navigator {
     enum Destination {
         case list
     }
-    
-    func viewController(for destination: MoviesNavigator.Destination) -> UIViewController {
-        switch destination {
-            case .list:
-                let localStorage = JSONMoviesResponseStorage()
-                let repository = DefaultMoviesRepository(local: localStorage)
-                let listUseCase = DefaultMoviesListUseCase(moviesRepository: repository)
-                let searchUsercase = DefaultSearchMoviesUseCase(moviesRepository: repository)
-                let viewModel = DefaultMoviesListViewModel(
-                    moviesListUseCase: listUseCase,
-                    searchMoviesUseCase: searchUsercase)
-                let view = MoviesListViewController(viewModel: viewModel)
-                view.coordinator = coordinator
-                return view
-        }
+
+    func makeMoviesListViewController(closures: MoviesListViewModelClosures) -> MoviesListViewController {
+        let localStorage = JSONMoviesResponseStorage()
+        let repository = DefaultMoviesRepository(local: localStorage)
+        let listUseCase = DefaultMoviesListUseCase(moviesRepository: repository)
+        let searchUsercase = DefaultSearchMoviesUseCase(moviesRepository: repository)
+        let viewModel = DefaultMoviesListViewModel(
+            moviesListUseCase: listUseCase,
+            searchMoviesUseCase: searchUsercase,
+            closures: closures)
+        let view = MoviesListViewController(viewModel: viewModel)
+        view.coordinator = coordinator
+        return view
     }
     
+    func makeMoviesDetailsViewController(movie: Movie) -> MoviesDetailsViewController {
+//        let localStorage = JSONMoviesResponseStorage()
+//        let repository = DefaultMoviesRepository(local: localStorage)
+//        let listUseCase = DefaultMoviesListUseCase(moviesRepository: repository)
+//        let searchUsercase = DefaultSearchMoviesUseCase(moviesRepository: repository)
+        let viewModel = DefaultMoviesDetailsViewModel(movie: movie)
+        let view = MoviesDetailsViewController(viewModel)
+        return view
+    }
 }

@@ -22,16 +22,14 @@ protocol Navigator {
     var coordinator: AppCoordinatorProtocol { get set }
     init(coordinator: AppCoordinatorProtocol)
 
-    func viewController(for destination: Destination) -> UIViewController
-
-    func navigate(to destination: Destination, with type: NavigatorType)
+    func navigate(to destination: UIViewController, with type: NavigatorType)
 }
 
 extension Navigator {
     
-    public func navigate(to destination: Destination,
+    public func navigate(to destination: UIViewController,
                          with type: NavigatorType = .push) {
-        let viewController = self.viewController(for: destination)
+        let viewController = destination
 
         switch type {
         case .push:
