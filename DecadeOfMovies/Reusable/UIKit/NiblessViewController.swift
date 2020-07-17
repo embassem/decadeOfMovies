@@ -9,7 +9,7 @@
 import UIKit
 
 //swiftlint:disable line_length
-open class NiblessViewController: UIViewController {
+open class NiblessViewController: BaseViewController {
     
     // MARK: - Methods
     public init() {

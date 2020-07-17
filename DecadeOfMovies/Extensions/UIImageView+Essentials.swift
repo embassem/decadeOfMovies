@@ -32,17 +32,26 @@ extension UIImageView {
             else { return }
         var delay = 0.0
         if KingfisherManager.shared.cache.isCached(forKey: url.absoluteString) == false {
-            self.startShimmeringAnimation()
+            self.startShimmeringAnimation(animationSpeed: 3.5, repeatCount: 2, isMask: true)
             delay = Constants.imageDelayTime
         }
-        self.backgroundColor = UIColor.grayscale200
+        self.backgroundColor = UIColor.grayscale600
         //TODO: remove this DispatchQueue After as it for demo delay purpose only.
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            self.kf.setImage(with: url) {[weak self] (_) in
+            KingfisherManager.shared.retrieveImage(
+                with: url,
+                options: [
+                    .transition(.fade(1.0))
+            ]) { [weak self] (result) in
                 self?.stopShimmeringAnimation()
-                self?.backgroundColor = UIColor.background
+                self?.backgroundColor = UIColor.grayscale800
+                if let image = result.value?.image {
+                    self?.image = image
+                } else {
+                    self?.image = #imageLiteral(resourceName: "img_logo")
+                    self?.backgroundColor = UIColor.grayscale900
+                }
             }
-
         }
 
     }
@@ -60,7 +69,8 @@ fileprivate extension UIView {
 
     func startShimmeringAnimation(animationSpeed: Float = 1.4,
                                   direction: Direction = .leftToRight,
-                                  repeatCount: Float = MAXFLOAT) {
+                                  repeatCount: Float = MAXFLOAT,
+                                  isMask: Bool = false) {
 
         // Create color  ->2
         let lightColor = UIColor.clear.cgColor
@@ -95,8 +105,11 @@ fileprivate extension UIView {
         }
 
         gradientLayer.locations =  [0.35, 0.50, 0.65] //[0.4, 0.6]
+        if isMask {
+             self.layer.mask = gradientLayer
+        } else {
         self.layer.addSublayer(gradientLayer) //= gradientLayer
-
+        }
         // Add animation over gradient Layer  ->4
         CATransaction.begin()
         let animation = CABasicAnimation(keyPath: "locations")
@@ -113,6 +126,8 @@ fileprivate extension UIView {
     }
 
     func stopShimmeringAnimation() {
+        self.layer.removeAnimation(forKey: "shimmerAnimation")
+         self.layer.removeAnimation(forKey: "locations")
         self.layer.mask = nil
     }
 

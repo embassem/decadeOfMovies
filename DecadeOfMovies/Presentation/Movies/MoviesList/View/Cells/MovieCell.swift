@@ -39,7 +39,7 @@ class MovieCell: UITableViewCell {
 
     func fill(with model: MoviesListItemViewModel) {
         self.movieTitleLabel.text = model.title
-        self.yearLabel.text = (model.year != nil) ? "\(String(describing: model.year))" : ""
+        self.yearLabel.text = "\(String(describing: model.year))"
         self.ratingView.rating = model.rating
         self.movieImageView.startShimmering()
     }

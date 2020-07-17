@@ -36,10 +36,9 @@ class MoviesNavigator: Navigator {
     
     func makeMoviesDetailsViewController(movie: Movie) -> MoviesDetailsViewController {
 //        let localStorage = JSONMoviesResponseStorage()
-//        let repository = DefaultMoviesRepository(local: localStorage)
-//        let listUseCase = DefaultMoviesListUseCase(moviesRepository: repository)
-//        let searchUsercase = DefaultSearchMoviesUseCase(moviesRepository: repository)
-        let viewModel = DefaultMoviesDetailsViewModel(movie: movie)
+        let repository = DefaultMovieDetailsRepository(remote: NetworkManager.shared)
+        let photosUsercase = DefaultMovieDetailPhotoUseCase(photosRepository: repository)
+        let viewModel = DefaultMoviesDetailsViewModel(movie: movie, photosUseCase: photosUsercase)
         let view = MoviesDetailsViewController(viewModel)
         return view
     }

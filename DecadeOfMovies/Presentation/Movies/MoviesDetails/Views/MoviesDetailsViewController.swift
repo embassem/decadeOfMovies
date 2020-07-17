@@ -13,6 +13,7 @@ class MoviesDetailsViewController: NiblessViewController {
     let viewModel: MoviesDetailsViewModel
     lazy var collectionFlow: UICollectionViewFlowLayout = {
         let flow = UICollectionViewFlowLayout()
+        //        flow.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         return flow
     }()
     lazy var collectionView: UICollectionView = {
@@ -20,7 +21,7 @@ class MoviesDetailsViewController: NiblessViewController {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: collectionFlow)
         self.view.addSubview(collection)
         collection.fillToSuperview()
-        collection.backgroundColor = .background
+        collection.backgroundColor = .grayscale800
         return collection
     }()
     
@@ -31,7 +32,7 @@ class MoviesDetailsViewController: NiblessViewController {
         view.addSubview(btn)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.widthAnchor.constraint(equalToConstant: 40).isActive = true
-         btn.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btn.heightAnchor.constraint(equalToConstant: 40).isActive = true
         let top: NSLayoutConstraint
         let leading: NSLayoutConstraint
         if #available(iOS 11.0, *) {
@@ -59,16 +60,22 @@ class MoviesDetailsViewController: NiblessViewController {
     
     func configureUI() {
         
-        collectionView.register(nibWithCellClass: MoviesDetailsHeaderCollectionViewCell.self)
+        collectionView.register(nibWithCellClass: MovieDetailsHeaderCell.self)
+        collectionView.register(nibWithCellClass: MovieDetailsInfoCell.self)
+        collectionView.register(nibWithCellClass: MoviePhotoCell.self)
+        
         view.backgroundColor = UIColor.background
         view.bringSubviewToFront(backButton)
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.reloadData {
-            
-        }
+        collectionView.reloadData()
+        bind(to: viewModel)
     }
     
+    private func bind(to viewModel: MoviesDetailsViewModel) {
+        viewModel.state.observe(on: self) { [weak self] _ in self?.collectionView.reloadData() }
+        viewModel.error.observe(on: self) { [weak self] in self?.showError(with: $0) }
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
@@ -85,19 +92,42 @@ class MoviesDetailsViewController: NiblessViewController {
 }
 
 extension MoviesDetailsViewController:
-UICollectionViewDataSource,
-UICollectionViewDelegate,
+    UICollectionViewDataSource,
+    UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-       let cell = collectionView.dequeueReusableCell(
-        withClass: MoviesDetailsHeaderCollectionViewCell.self,
-        for: indexPath)
-        
-     return cell
+        let section = indexPath.section
+        switch section {
+            case 0:
+                let item = indexPath.item
+                switch item {
+                    case 0:
+                        let cell = collectionView.dequeueReusableCell(
+                            withClass: MovieDetailsHeaderCell.self,
+                            for: indexPath)
+                        cell.fill(with: viewModel.item(for: indexPath))
+                        return cell
+                    case 1:
+                        let cell = collectionView.dequeueReusableCell(
+                            withClass: MovieDetailsInfoCell.self,
+                            for: indexPath)
+                        cell.fill(with: viewModel.item(for: indexPath))
+                        return cell
+                    default: return UICollectionViewCell()
+            }
             
+            case 1:
+                let cell = collectionView.dequeueReusableCell(
+                    withClass: MoviePhotoCell.self,
+                    for: indexPath)
+                cell.fill(with: viewModel.photoItem(for: indexPath))
+                return cell
+            
+            default: return UICollectionViewCell()
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -110,12 +140,18 @@ UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-  
-                if(indexPath.row == 0) {
-                    return CGSize(width: collectionView.frame.size.width, height: 430)
-                } else {
-                    return CGSize(width: collectionView.frame.size.width, height: 90)
-        }
         
+        let space: CGFloat =
+            (collectionFlow.minimumInteritemSpacing) +
+            (collectionFlow.sectionInset.left) +
+            (collectionFlow.sectionInset.right)
+        
+        switch (indexPath.section, indexPath.row) {
+            case (0, 0):  return CGSize(width: collectionView.frame.size.width, height: 430)
+            case (0, 1): return CGSize(width: collectionView.frame.size.width, height: 200)
+            case (1, _): return CGSize(width: ((collectionView.frame.size.width - space) / 2), height: 250)
+            default: return .zero
+            
+        }
     }
 }
