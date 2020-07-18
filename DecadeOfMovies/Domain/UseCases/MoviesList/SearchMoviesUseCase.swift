@@ -31,7 +31,7 @@ final class DefaultSearchMoviesUseCase: SearchMoviesUseCase {
     }
     func execute(query: String, completion: @escaping (Result<[Movie], Error>) -> Void) {
         
-        let filteredList = list.filter({ ($0.title?.contains(query) ?? false) })
+        let filteredList = list.filter({ ($0.title?.lowercased().contains(query.lowercased()) ?? false) })
         
         let yearMovies = Array(Dictionary(grouping: filteredList, by: { $0.year }))
         var limitMovies: [Movie] = []
