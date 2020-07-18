@@ -147,7 +147,7 @@ UICollectionViewDelegateFlowLayout {
             (collectionFlow.sectionInset.right)
         
         switch (indexPath.section, indexPath.row) {
-            case (0, 0):  return CGSize(width: collectionView.frame.size.width, height: 430)
+            case (0, 0):  return CGSize(width: collectionView.frame.size.width, height: 160)
             case (0, 1): return CGSize(width: collectionView.frame.size.width, height: 200)
             case (1, _): return CGSize(width: ((collectionView.frame.size.width - space) / 2), height: 250)
             default: return .zero
