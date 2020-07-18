@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import DecadeOfMovies
 
 class DecadeOfMoviesTests: XCTestCase {
 
