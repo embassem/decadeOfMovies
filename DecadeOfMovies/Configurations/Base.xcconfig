@@ -1,7 +1,7 @@
 
 //
 //  Base.xcconfig
-//  The Valley
+//  DecadeOfMovies
 //
 //  Created by Bassem Abbas on 3/9/20.
 //  Copyright © 2020 Bassem Abbas. All rights reserved.
@@ -11,4 +11,4 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 BASE_DOMAIN = www.nasable.com
-APP_BUNDLE_IDENTIFIER = app.offers${DEVELOPMENT_TEAM}
+APP_BUNDLE_IDENTIFIER = app.DecadeOfMovies${DEVELOPMENT_TEAM}

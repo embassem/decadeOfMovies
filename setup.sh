@@ -28,5 +28,5 @@ hash carthage 2>/dev/null || die "Can't find Carthage, please install from https
 hash xcodebuild 2>/dev/null || die "Can't find Xcode, please install from the App Store"
 hash swiftlint 2>/dev/null || die "Can't find Carthage, please install from https://github.com/realm/SwiftLint"
 hash swiftgen 2>/dev/null || die "Can't find Carthage, please install from https://github.com/swiftgen/swiftgen"
-
+xcodebuild -resolvePackageDependencies
 echo "✅  project was set up, you can now open it."

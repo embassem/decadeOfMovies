@@ -66,5 +66,7 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>APP_BUNDLE_IDENTIFIER</key>
+	<string>$(APP_BUNDLE_IDENTIFIER)</string>
 </dict>
 </plist>
