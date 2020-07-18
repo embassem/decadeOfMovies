@@ -19,7 +19,7 @@ class SearchMoviesUseCaseTest: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+       sut = nil
     }
 
     func testExecuteFoundAllResult() throws {
@@ -82,12 +82,4 @@ class SearchMoviesUseCaseTest: XCTestCase {
 
         XCTAssert(title3index < title2index, " search result should be orderd by top 5 rating in same year ")
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
