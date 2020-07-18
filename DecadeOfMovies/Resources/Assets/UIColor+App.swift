@@ -45,5 +45,13 @@ extension UIColor {
             return UIColor(red: 0.13, green: 0.18, blue: 0.20, alpha: 1.0)
         }
     }
+    
+    class var grayscale900: UIColor {
+        if #available(iOS 11.0, *) {
+            return Asset.Colors.grayscale900.color
+        } else {
+            return UIColor(red: 20/255, green: 32/255, blue: 38/255, alpha: 1.0)
+        }
+    }
 
 }

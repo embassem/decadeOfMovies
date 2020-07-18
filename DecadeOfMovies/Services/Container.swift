@@ -14,18 +14,18 @@ class Container {
         return SplashViewController()
     }
 
-    class Root {
-        class func getRootScene() -> UIViewController {
-            return getMoviewsListScene()
-        }
-
-        class func getMoviewsListScene() -> UIViewController {
-            let movies = MoviesListViewController()
-            movies.edgesForExtendedLayout = .all
-            movies.extendedLayoutIncludesOpaqueBars = true
-            return movies.embadInNav()
-        }
-    }
+//    class Root {
+//        class func getRootScene() -> UIViewController {
+//            return getMoviewsListScene()
+//        }
+//
+//        class func getMoviewsListScene() -> UIViewController {
+//            let movies = MoviesListViewController()
+//            movies.edgesForExtendedLayout = .all
+//            movies.extendedLayoutIncludesOpaqueBars = true
+//            return movies.embadInNav()
+//        }
+//    }
 }
 
 fileprivate extension UIViewController {

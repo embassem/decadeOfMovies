@@ -17,6 +17,14 @@ extension UIImageView {
         self.image = flipedImage
     }
 
+    func startShimmering() {
+        self.startShimmeringAnimation()
+    }
+    
+    func stopShimmering() {
+        layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+    }
+    
     func setImageWith(urlString: String?, placeholder: UIImage? = nil ) {
         self.image = placeholder
         guard let imageurl = urlString ,
@@ -24,17 +32,26 @@ extension UIImageView {
             else { return }
         var delay = 0.0
         if KingfisherManager.shared.cache.isCached(forKey: url.absoluteString) == false {
-            self.startShimmeringAnimation()
+            self.startShimmeringAnimation(animationSpeed: 3.5, repeatCount: 2, isMask: true)
             delay = Constants.imageDelayTime
         }
-        self.backgroundColor = UIColor.grayscale200
+        self.backgroundColor = UIColor.grayscale600
         //TODO: remove this DispatchQueue After as it for demo delay purpose only.
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            self.kf.setImage(with: url) {[weak self] (_) in
+            KingfisherManager.shared.retrieveImage(
+                with: url,
+                options: [
+                    .transition(.fade(1.0))
+            ]) { [weak self] (result) in
                 self?.stopShimmeringAnimation()
-                self?.backgroundColor = UIColor.background
+                self?.backgroundColor = UIColor.grayscale800
+                if let image = result.value?.image {
+                    self?.image = image
+                } else {
+                    self?.image = #imageLiteral(resourceName: "img_logo")
+                    self?.backgroundColor = UIColor.grayscale900
+                }
             }
-
         }
 
     }
@@ -52,11 +69,13 @@ fileprivate extension UIView {
 
     func startShimmeringAnimation(animationSpeed: Float = 1.4,
                                   direction: Direction = .leftToRight,
-                                  repeatCount: Float = MAXFLOAT) {
+                                  repeatCount: Float = MAXFLOAT,
+                                  isMask: Bool = false) {
 
         // Create color  ->2
-        let lightColor = UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1).cgColor
-        let blackColor = UIColor.black.cgColor
+        let lightColor = UIColor.clear.cgColor
+        //UIColor(displayP3Red: 1.0, green: 1.0, blue: 1.0, alpha: 0.1).cgColor
+        let blackColor = UIColor.grayscale800.cgColor
 
         // Create a CAGradientLayer  ->3
         let gradientLayer = CAGradientLayer()
@@ -86,13 +105,16 @@ fileprivate extension UIView {
         }
 
         gradientLayer.locations =  [0.35, 0.50, 0.65] //[0.4, 0.6]
-        self.layer.mask = gradientLayer
-
+        if isMask {
+             self.layer.mask = gradientLayer
+        } else {
+        self.layer.addSublayer(gradientLayer) //= gradientLayer
+        }
         // Add animation over gradient Layer  ->4
         CATransaction.begin()
         let animation = CABasicAnimation(keyPath: "locations")
         animation.fromValue = [0.0, 0.1, 0.2]
-        animation.toValue = [0.8, 0.9, 1.0]
+        animation.toValue = [0.7, 0.9, 1.1]
         animation.duration = CFTimeInterval(animationSpeed)
         animation.repeatCount = repeatCount
         CATransaction.setCompletionBlock { [weak self] in
@@ -104,6 +126,8 @@ fileprivate extension UIView {
     }
 
     func stopShimmeringAnimation() {
+        self.layer.removeAnimation(forKey: "shimmerAnimation")
+         self.layer.removeAnimation(forKey: "locations")
         self.layer.mask = nil
     }
 

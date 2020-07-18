@@ -100,13 +100,6 @@
 		<key>fontSize</key>
 		<integer>10</integer>
 	</dict>
-	<key>AppFontStyleT2Bold</key>
-	<dict>
-		<key>fontName</key>
-		<string>SFProText-Bold</string>
-		<key>fontSize</key>
-		<integer>16</integer>
-	</dict>
 	<key>AppFontStyleH1Medium</key>
 	<dict>
 		<key>fontName</key>
@@ -190,6 +183,20 @@
 		<string>SFProText-Medium</string>
 		<key>fontSize</key>
 		<integer>18</integer>
+	</dict>
+	<key>AppFontStyleT1Bold</key>
+	<dict>
+		<key>fontName</key>
+		<string>SFProText-Bold</string>
+		<key>fontSize</key>
+		<integer>24</integer>
+	</dict>
+	<key>AppFontStyleT2Bold</key>
+	<dict>
+		<key>fontName</key>
+		<string>SFProText-Bold</string>
+		<key>fontSize</key>
+		<integer>30</integer>
 	</dict>
 </dict>
 </plist>

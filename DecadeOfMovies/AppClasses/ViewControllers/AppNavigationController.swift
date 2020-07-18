@@ -18,12 +18,15 @@ class AppNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 11.0, *) {
-            self.navigationBar.prefersLargeTitles = false
+            self.navigationBar.prefersLargeTitles = true
         }
-        self.navigationBar.tintColor = UIColor.grayscale800
-        //        self.navigationItem.leftItemsSupplementBackButton = true
-        self.navigationController?.navigationBar.titleTextAttributes =
-            [NSAttributedString.Key.foregroundColor: UIColor.grayscale200]
+        self.navigationBar.isTranslucent = false
+        self.navigationBar.backgroundColor = UIColor.grayscale800
+        self.navigationBar.barTintColor = UIColor.grayscale800
+        self.navigationBar.tintColor = UIColor.grayscale200
+        self.navigationBar.titleTextAttributes =
+            [.foregroundColor: UIColor.grayscale200,
+             .font: AppFonts.font(forTextStyle: .title1Bold)]
         if #available(iOS 13.0, *) {
             styleiOS13()
         }
@@ -36,24 +39,25 @@ class AppNavigationController: UINavigationController {
         let navBarAppearance = UINavigationBarAppearance()
 
         // Call this first otherwise it will override your customizations
-        navBarAppearance.configureWithTransparentBackground()
+        navBarAppearance.configureWithOpaqueBackground()
 
         navBarAppearance.titleTextAttributes = [
-            .foregroundColor: Asset.Colors.grayscale800.color, // Navigation bar title color
-            .font: AppFonts.font(forTextStyle: .body1normal) // Navigation bar title font
+            .foregroundColor: Asset.Colors.grayscale200.color, // Navigation bar title color
+            .font: AppFonts.font(forTextStyle: .title1Bold) // Navigation bar title font
         ]
 
         navBarAppearance.largeTitleTextAttributes = [
-            .foregroundColor: Asset.Colors.grayscale800.color, // Navigation bar title color
-            .font: AppFonts.font(forTextStyle: .body1normal) // Navigation bar title font
+            .foregroundColor: Asset.Colors.grayscale200.color, // Navigation bar title color
+            .font: AppFonts.font(forTextStyle: .title2Bold) // Navigation bar title font
         ]
 
-        navBarAppearance.backgroundColor = Asset.Colors.grayscale200.color // Navigation bar bg color
-        navBarAppearance.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 0) // Only works on non large title
+        navBarAppearance.backgroundColor = Asset.Colors.grayscale800.color // Navigation bar bg color
+        navBarAppearance.titlePositionAdjustment =
+            UIOffset(horizontal: -100, vertical: 0) // Only works on non large title
 
         navigationBar.standardAppearance = navBarAppearance
         navigationBar.compactAppearance = navBarAppearance
         navigationBar.scrollEdgeAppearance = navBarAppearance
-        navigationBar.prefersLargeTitles = false // Activate large title
+        navigationBar.prefersLargeTitles = true // Activate large title
     }
 }

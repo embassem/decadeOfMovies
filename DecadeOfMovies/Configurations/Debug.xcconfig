@@ -1,0 +1,15 @@
+
+//
+//  Base.xcconfig
+//  DecadeOfMovies
+//
+//  Created by Bassem Abbas on 3/9/20.
+//  Copyright © 2020 Bassem Abbas. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Base.xcconfig"
+
+APP_ICON = AppIcon_Debug

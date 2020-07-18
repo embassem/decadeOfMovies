@@ -34,16 +34,16 @@ submodules:
 	git submodule update --init --recursive || true
 
 secrets: submodules
-	-@rm -rf Offers/Configuration/Secrets
-	mkdir -p Offers/Configuration/Secrets
+	-@rm -rf DecadeOfMovies/Configurations/Secrets
+	mkdir -p DecadeOfMovies/Configurations/Secrets
 
 	if [ -d Submodule/Secrets/iOS/Secrets ]; \
 	then \
-		cp -n -R Submodule/Secrets/iOS/Secrets/ Offers/Configuration/Secrets/ || true; \
+		cp -n -R Submodule/Secrets/iOS/Secrets/DecadeOfMovies/Configurations/Secrets/ || true; \
 	else \
-	cp -n -R Fake/ Offers/Configuration/Secrets/ || true; \
+	cp -n -R Fake/DecadeOfMovies/Configurations/Secrets/ || true; \
 	fi
 
 
 sourcekitten:
-	sourcekitten doc -- -workspace Offers.xcworkspace -scheme Offers > ./sourcekittendocs.json
+	sourcekitten doc -- -workspace DecadeOfMovies.xcworkspace -scheme DecadeOfMovies > ./sourcekittendocs.json

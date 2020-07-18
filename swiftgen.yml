@@ -7,12 +7,6 @@ strings:
     templatePath: ./APPStringsTemplete.stencil
     output: Resources/Localization/Localized.swift
   fallback: Base
-custom_rules:
-  swiftgen_strings:
-    name: "SwiftGen Strings"
-    regex: 'NSLocalizedString'
-    message: "Use L10n.key instead"
-    severity: error
 fonts:
   inputs: Resources/Fonts
   outputs:
